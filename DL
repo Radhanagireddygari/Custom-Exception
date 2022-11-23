@@ -1,0 +1,74 @@
+package radha;
+
+public class UnderAgeException  extends Exception{
+	public String getMessage() {
+		return "YOU ARE TOO YOUNG, HAVE PATIENCE";
+	}
+}
+package radha;
+
+public class OverAgeException extends Exception{
+	public String getMessage() {
+		return "YOU ARE TOO OLD,TAKE REST";
+
+}
+}
+package radha;
+
+import java.util.Scanner;
+
+public class Applicant {
+	int age;
+	public void acceptInput() {
+		Scanner scan=new Scanner(System.in);
+		System.out.println("Enter the age of the Applicant");
+		age=scan.nextInt();	
+	}
+	public void verify()throws Exception{
+		if(age<18) {
+			UnderAgeException ue=new UnderAgeException();
+			System.out.println(ue.getMessage());
+			throw ue;
+		}
+		else if(age>60) {
+			OverAgeException oe=new OverAgeException();
+			System.out.println(oe.getMessage());
+			throw oe;
+		}
+		else {
+			System.out.println("COLLECT YOUR DRIVING LICENCE");
+		}
+	}
+
+}
+package radha;
+
+public class RTO {
+	public void initiate() {
+		Applicant a=new Applicant();
+		try {
+			a.acceptInput();
+			a.verify();
+		}
+		catch(Exception e) {
+			try {
+				a.acceptInput();
+				a.verify();
+			}
+			catch(Exception f) {
+				System.out.println("TRY WHEN AGE IS ELLIGIBLE");
+				System.exit(0);
+			}
+		}
+	}
+
+}
+package radha;
+
+public class Launch1 {
+	public static void main(String[] args) {
+		RTO rto=new RTO();
+		rto.initiate();
+
+}
+}
